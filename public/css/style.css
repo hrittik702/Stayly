@@ -2,11 +2,11 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: roboto;
+  font-family: inter;
   /* color: white; */
 }
 
-html{
+html {
   scrollbar-gutter: stable;
 }
 
@@ -35,7 +35,9 @@ nav {
 }
 
 #stayly-logo {
-  width: 2.5rem;
+  /* width: 3rem; */
+  height: 100%;
+  margin-top: 6px;
 }
 
 .nav-left {
@@ -43,13 +45,13 @@ nav {
   justify-content: flex-start;
   align-items: center;
   flex: 1;
-  gap: 1rem;
+  height: 100%;
+  gap: 0.2rem;
 }
 
-.nav-left p {
+.nav-left > p {
   font-size: 1.7rem;
   font-weight: 500;
-  color: #31ccfa;
   line-height: 2.5rem;
 }
 
@@ -57,21 +59,26 @@ nav {
   flex: 1;
   display: flex;
   align-items: center;
+  height: 100%;
   justify-content: center;
 }
 
 .nav-right {
   flex: 1;
   display: flex;
+  height: 100%;
   align-items: center;
   justify-content: flex-end;
+  gap: 1.5rem;
 }
 
 .header-down {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5rem;
+  height: 4.3rem;
+  margin-top: 1rem;
+
   padding: 0.5rem 0;
 }
 
@@ -103,13 +110,9 @@ main {
 
 .listing-card {
   width: fit-content;
-  /* display: flex; */
   align-items: center;
   justify-content: space-evenly;
-  /* flex-wrap: wrap; */
   overflow: hidden;
-  /* margin: 1rem 1rem 2rem 1rem; */
-  /* background: rgb(240, 240, 240); */
   padding: 0.7rem;
   border-radius: 0.4rem;
   transition: 0.3s ease all;
@@ -124,7 +127,7 @@ main {
 }
 
 .listing-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
   transition: 0.3s ease all;
 }
 
@@ -148,12 +151,70 @@ main {
   padding: 0 0 0.5rem 0;
 }
 
-footer{
+footer {
   width: 100%;
   height: 20rem;
-
 }
 
-.footer-left img{
+.footer-left img {
   width: 2.5rem;
+}
+
+nav button {
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.head {
+  height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.head > p{
+  color: black;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.head p:nth-child(2) {
+  font-size: 0.6rem;
+  /* margin-left: 1rem; */
+}
+
+.nav-right input {
+  appearance: none;
+  border: 1px solid grey;
+  padding: 0.5rem 1rem;
+  border-radius: 100vw;
+  transition: 0.3s ease all;
+}
+
+.nav-right input:focus{
+  appearance: none;
+  outline: 1px solid grey;
+  border: none;
+}
+
+.nav-right input:hover{
+  transform : scale(1.02);
+  transition: 0.3s ease all;
+}
+
+.nav-right i{
+  transition: 0.2s ease all;
+}
+
+.nav-right i:hover{
+  transform: scale(1.03);
+  transition: 0.2s ease all;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
