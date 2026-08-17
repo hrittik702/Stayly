@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show</title>
+  </head>
+  <body>
+    <h1><%= showListing.title %></h1>
+    <p><%= showListing.description %></p>
+    <p><%= showListing.price %></p>
+    <p><%= showListing.location %></p>
+    <p><%= showListing.country %></p>
+
+    <a href="/listing/<%=showListing._id%>/edit"><button>Edit Listing</button></a>
+    <form method="POST" action="/listing/<%=showListing._id%>/delete?_method=DELETE">
+      <button>Delete Listing</button>
+    </form>
+  </body>
+</html>

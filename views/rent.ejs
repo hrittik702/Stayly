@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stayly - Rent your home</title>
-    <link rel="shortcut icon" href="Assets/stayly-logo.png" type="image/x-icon" />
+    <title>Stayly - Add your Home</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/rent.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,22 +22,32 @@
   </head>
   <body>
     <div id="main">
-     <%- include('includes/nav.ejs') %>
-      <main>
-        <div class="listing-container">
-          <% for(let listing of listings) {%>
-          <a href="/show/<%= listing._id%>">
-            <div class="listing-card">
-            <img src=<%=listing.image.url%> alt=<%=listing.image.filename%>>
-            <p class="title"><%=listing.title%></p>
-            <p class="add-info"><%=listing.price%> • <%= listing.location %> </p>
-          </div>
-          </a>
-          <% } %>
-        </div>
-        
-      </main>
+      <%- include('includes/nav.ejs') %>
+      <div class="container">
+        <form method="POST" action="/rent">
+          <span>Title</span>
+          <br />
+          <input type="text" name="title" placeholder="" />
+          <br /><br />
+          <span>Description</span>
+          <br />
+          <textarea name="description" id=""></textarea>
+          <br />
+          <br />
+          <span>Image URL</span>
+          <br />
+          <input type="text" name="image" />
+          <br /><br />
+          <span>Price</span>
+          <input type="number" name="price" />
+          <br /><br />
+          <span>Location</span>
+          <input type="text" name="location" />
+          <span>Country</span>
+          <input type="text" name="Country" />
+          <button>Submit</button>
+        </form>
+      </div>
     </div>
-    <%- include("includes/footer.ejs") %>
   </body>
 </html>
