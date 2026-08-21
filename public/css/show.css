@@ -1,0 +1,113 @@
+main p:nth-child(1) {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2rem;
+  color: rgb(29, 29, 29);
+  line-height: 2.3rem;
+  font-family: roboto;
+}
+
+main > p:nth-child(2) {
+  font-size: 0.7rem;
+  color: black;
+}
+
+main {
+  padding: 0 1rem 0 1rem;
+}
+
+main img {
+  width: 40rem;
+  position: center;
+  border-radius: 1rem;
+  height: 25rem;
+  object-fit: cover;
+}
+
+.images {
+  width: fit-content;
+  height: 25rem;
+  overflow: hidden;
+  margin: 1rem 0 1rem 0;
+}
+
+.header-down {
+  transition: 0.3s ease all;
+  display: none;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.host-settings {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.host-settings button {
+  appearance: none;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+.host-settings button {
+  transform: scale(1.02);
+  transition: 0.2s ease all;
+  position: relative;
+}
+
+input {
+  appearance: none;
+  border: 1px solid rgb(182, 182, 182);
+  width: fit-content;
+  border-radius: 100vw;
+  padding: 0.5rem 0.8rem;
+}
+
+main input:nth-child(1) {
+  font-size: 2rem;
+  height: 100%;
+  /* width: 100%; */
+  padding: 0 1rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+main textarea {
+  resize: none;
+  width: 20rem;
+  height: 5rem;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.title-down {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-down-right {
+  margin-right: 10rem;
+  margin-top: 1rem;
+}
+
+.add-info {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+#price {
+  padding: 0.4rem 1rem;
+  color: black;
+  opacity: 1;
+  border-radius: 1rem;
+  background-color: rgb(187, 255, 187);
+}

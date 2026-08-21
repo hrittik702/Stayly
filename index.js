@@ -5,6 +5,7 @@ const listing = require('./models/listings');
 const port = 3000;
 const app = express();
 const methodOverride = require('method-override');
+const ejsMate = require('ejs-mate');
 
 // view engine
 app.set('view engine', 'ejs');
@@ -13,6 +14,7 @@ app.set('public', path.join(__dirname, '/public'));
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.engine('ejs', ejsMate);
 // connecting to database
 const main = async () => {
   await mongoose.connect('mongodb://127.0.0.1:27017/stayly');
@@ -27,7 +29,7 @@ main()
   });
 
 // server listening
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log('Server Active');
 });
 
