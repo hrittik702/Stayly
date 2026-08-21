@@ -1,17 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stayly - Edit Listing</title>
-  </head>
-  <body>
-    <h1>Edit Listing : <%= editListing.title %></h1>
+<% layout("/layout/boilerplate") %>
+<head>
+  <link rel="stylesheet" href="/css/show.css" />
+</head>
+<body>
+  <main>
     <form method="POST" action="/listing/<%= editListing._id%>/edit?_method=PUT">
-      <span>Title</span>
-      <br />
-      <input type="text" name="title" placeholder="" value="<%= editListing.title %>" />
-      <br /><br />
+      <div class="title">
+        <input type="text" name="title" placeholder="" value="<%= editListing.title %>" />
+        <div class="host-settings">
+          <button>Submit Listing</button>
+        </div>
+      </div>
+      <p><%= editListing.description %></p>
+   
+      <div class="title-down">
+         <div class="images">
+      <img src=<%=editListing.image.url%> alt="">
+    </div>
+    <div class="title-down-right">
       <span>Description</span>
       <br />
       <textarea name="description"><%= editListing.description%></textarea>
@@ -21,14 +27,17 @@
       <br />
       <input type="text" name="image" value="<%= editListing.image.url%>" />
       <br /><br />
-      <span>Price</span>
+      <span>Price</span><br>
       <input type="number" name="price" value="<%= editListing.price %>" />
       <br /><br />
-      <span>Location</span>
+      <span>Location</span><br>
       <input type="text" name="location" value="<%= editListing.location %>" />
-      <span>Country</span>
-      <input type="text" name="country" value="<%= editListing.country %>" />
-      <button>Edit</button>
+      <br><br>
+      <span>Country</span><br>
+      <input id="price" type="text" name="country" value="<%= editListing.country %>" />
+    </div>
+      </div>
+      
     </form>
-  </body>
-</html>
+  </main>
+</body>
