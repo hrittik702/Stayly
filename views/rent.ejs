@@ -1,30 +1,91 @@
 <% layout("/layout/boilerplate") %>
-<body>
-  <main>
-    <div class="container">
-      <form method="POST" action="/rent">
-        <span>Title</span>
-        <br />
-        <input type="text" name="title" placeholder="" />
-        <br /><br />
-        <span>Description</span>
-        <br />
-        <textarea name="description" id=""></textarea>
-        <br />
-        <br />
-        <span>Image URL</span>
-        <br />
-        <input type="text" name="image" />
-        <br /><br />
-        <span>Price</span>
-        <input type="number" name="price" />
-        <br /><br />
-        <span>Location</span>
-        <input type="text" name="location" />
-        <span>Country</span>
-        <input type="text" name="Country" />
-        <button>Submit</button>
+<head>
+  <link rel="stylesheet" href="/css/special.css" />
+</head>
+<main>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="mb-2">Create New Listing</h2>
+      <form method="POST" action="/rent" class="needs-validation" novalidate>
+        <div class="has-validation mb-2">
+          <label for="title" class="form-label">Title</label><br />
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            id="title"
+            placeholder="Enter title"
+            required
+          />
+          <div class="valid-feedback">Nice title!</div>
+        </div>
+        <div class="has-validation">
+          <label for="description" class="form-label">Description</label><br />
+          <textarea
+            name="description"
+            id="description"
+            class="form-control mb-2"
+            placeholder="Write a description for the listing"
+            required
+          ></textarea>
+          <div class="invalid-feedback">Please enter a brief description of the place</div>
+        </div>
+        <!-- image & price -->
+        <div class="row">
+          <div class="col-7 has-validation">
+            <label for="image" class="form-label">Image URL</label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              class="form-control mb-3"
+              placeholder="Enter the image url"
+              required
+            />
+            <div class="invalid-feedback">Please provide a valid url</div>
+          </div>
+          <div class="col-5 has-validation">
+            <label for="price" class="form-label">Price</label>
+            <input
+              type="number"
+              name="price"
+              class="form-control mb-2"
+              id="price"
+              placeholder="Enter price per night"
+              required
+            />
+            <div class="invalid-feedback">Please enter a reasonable price</div>
+          </div>
+        </div>
+        <!-- location & Country -->
+        <div class="row mb-2">
+          <div class="col-md-8 has-validation">
+            <label for="location" class="form-label">Location</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              class="form-control mb-2"
+              placeholder="Enter location of the place"
+              required
+            />
+            <div class="invalid-feedback">Please enter location</div>
+          </div>
+          <div class="col-md-4">
+            <label for="country" class="form-label has-validation">Country</label>
+            <input
+              type="text"
+              id="country"
+              name="country"
+              class="form-control mb-2"
+              placeholder="Enter country"
+              required
+            />
+            <div class="invalid-feedback">Please enter country</div>
+          </div>
+        </div>
+        <button class="btn btn-dark submit-btn">Submit</button>
       </form>
     </div>
-  </main>
-</body>
+  </div>
+</main>

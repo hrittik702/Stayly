@@ -1,17 +1,13 @@
-<head>
-  <link rel="stylesheet" href="/css/show.css">
-</head>
 <% layout("/layout/boilerplate") %>
-<body>
-  <main>
+<main>
     <div class="title">
       <p><%= showListing.title %></p>
-    <div class="host-settings">
-      <a href="/listing/<%=showListing._id%>/edit"><button>Edit Listing</button></a>
-    <form method="POST" action="/listing/<%=showListing._id%>/delete?_method=DELETE">
-      <button>Delete Listing</button>
-    </form>
-    </div>
+      <div class="host-settings">
+        <a href="/listing/<%=showListing._id%>/edit"><button class="btn btn-dark">Edit Listing</button></a>
+        <form method="POST" action="/listing/<%=showListing._id%>/delete?_method=DELETE">
+          <button class="btn btn-dark">Delete Listing</button>
+        </form>
+      </div>
     </div>
     <p><%= showListing.description %></p>
     <div class="images">
@@ -19,7 +15,6 @@
     </div>
     <div class="add-info">
       <span><%= showListing.location %>, <%= showListing.country %></span> <br><br>
-      <span id="price">&#x20B9; <%= showListing.price.toLocaleString('en-IN') %></span> 
+      <span id="price">&#x20B9; <%= showListing.price ? showListing.price.toLocaleString('en-IN') : 'N/A' %></span> 
     </div>
-  </main>
-</body>
+</main>
