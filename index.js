@@ -6,15 +6,17 @@ const port = 3000;
 const app = express();
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const wrapAsync = require('./utils/wrapAsync.js');
 
 // view engine
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 app.set('public', path.join(__dirname, '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-app.engine('ejs', ejsMate);
+
 // connecting to database
 const main = async () => {
   await mongoose.connect('mongodb://127.0.0.1:27017/stayly');
@@ -34,17 +36,23 @@ app.listen(port, '0.0.0.0', () => {
 });
 
 // index route
-app.get('/', async (req, res) => {
-  const listings = await listing.find();
-  res.render('stayly.ejs', { listings });
-});
+app.get(
+  '/',
+  wrapAsync(async (req, res) => {
+    const listings = await listing.find();
+    res.render('stayly.ejs', { listings });
+  })
+);
 
 // show route
-app.get('/show/:id', async (req, res) => {
-  let { id } = req.params;
-  const showListing = await listing.findById(id);
-  res.render('show.ejs', { showListing });
-});
+app.get(
+  '/show/:id',
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const showListing = await listing.findById(id);
+    res.render('show.ejs', { showListing });
+  })
+);
 
 // new rent route
 app.get('/rent', (req, res) => {
@@ -52,50 +60,59 @@ app.get('/rent', (req, res) => {
 });
 
 // creating rent house
-app.post('/rent', async (req, res) => {
-  const { title, description, image, price, location, country } = req.body;
-  await listing.insertOne({
-    title: title,
-    description: description,
-    image: { url: image },
-    price: price,
-    location: location,
-    country: country,
-  });
-  res.redirect('/');
-});
-
-//edit route
-app.put('/listing/:id/edit', async (req, res) => {
-  let { id } = req.params;
-  console.log(id);
-  const { title, description, image, price, location, country } = req.body;
-  console.log(title, description, image, price, location, country);
-  let updateListing = await listing.findByIdAndUpdate(
-    id,
-    {
+app.post(
+  '/rent',
+  wrapAsync(async (req, res) => {
+    const { title, description, image, price, location, country } = req.body;
+    await listing.insertOne({
       title: title,
       description: description,
       image: { url: image },
       price: price,
       location: location,
       country: country,
-    },
-    { new: true }
-  );
-  console.log(updateListing);
-  res.redirect(`/show/${id}`);
-});
+    });
+    res.redirect('/');
+  })
+);
 
-app.get('/listing/:id/edit', async (req, res) => {
-  let { id } = req.params;
-  const editListing = await listing.findById(id);
-  res.render('edit.ejs', { editListing });
-});
+//edit route
+app.put(
+  '/listing/:id/edit',
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const { title, description, image, price, location, country } = req.body;
+    let updateListing = await listing.findByIdAndUpdate(
+      id,
+      {
+        title: title,
+        description: description,
+        image: { url: image },
+        price: price,
+        location: location,
+        country: country,
+      },
+      { new: true }
+    );
+    res.redirect(`/show/${id}`);
+  })
+);
+
+app.get(
+  '/listing/:id/edit',
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const editListing = await listing.findById(id);
+    res.render('edit.ejs', { editListing });
+  })
+);
 
 // destroy route
-app.delete('/listing/:id/delete', async (req, res) => {
-  let { id } = req.params;
-  await listing.findByIdAndDelete(id);
-  res.redirect('/');
-});
+app.delete(
+  '/listing/:id/delete',
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await listing.findByIdAndDelete(id);
+    res.redirect('/');
+  })
+);
