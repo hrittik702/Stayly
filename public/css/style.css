@@ -280,3 +280,14 @@ footer a {
   text-decoration: underline #222;
   offset: 2px;
 }
+
+/* error.ejs */
+.error {
+  width: 100% !important;
+  height: 100% !important;
+  flex: 1 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 10rem;
+}
