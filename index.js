@@ -7,6 +7,8 @@ const app = express();
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
+const ExpressError = require('./utils/expressError.js');
+const { schemaValidation } = require('./schema.js');
 
 // view engine
 app.engine('ejs', ejsMate);
@@ -29,11 +31,6 @@ main()
   .catch((err) => {
     console.log(err);
   });
-
-// server listening
-app.listen(port, '0.0.0.0', () => {
-  console.log('Server Active');
-});
 
 // index route
 app.get(
@@ -63,6 +60,9 @@ app.get('/rent', (req, res) => {
 app.post(
   '/rent',
   wrapAsync(async (req, res) => {
+    if (!req.body) {
+      throw new ExpressError(400, 'Send valid data for listing');
+    }
     const { title, description, image, price, location, country } = req.body;
     await listing.insertOne({
       title: title,
@@ -116,3 +116,18 @@ app.delete(
     res.redirect('/');
   })
 );
+
+app.all('/{*splat}', (req, res, next) => {
+  next(new ExpressError(404, 'Page not found!'));
+});
+
+app.use((err, req, res, next) => {
+  let { status = 500, message = 'Something went wrong' } = err;
+  res.render('error.ejs', { err });
+  // res.status(status).send(message);
+});
+
+// server listening
+app.listen(port, '0.0.0.0', () => {
+  console.log('Server Active');
+});
