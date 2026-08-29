@@ -63,15 +63,8 @@ app.post(
     if (!req.body) {
       throw new ExpressError(400, 'Send valid data for listing');
     }
-    const { title, description, image, price, location, country } = req.body;
-    await listing.insertOne({
-      title: title,
-      description: description,
-      image: { url: image },
-      price: price,
-      location: location,
-      country: country,
-    });
+    const newListing = new listing(req.body.listing);
+    await newListing.save();
     res.redirect('/');
   })
 );
@@ -81,19 +74,8 @@ app.put(
   '/listing/:id/edit',
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const { title, description, image, price, location, country } = req.body;
-    let updateListing = await listing.findByIdAndUpdate(
-      id,
-      {
-        title: title,
-        description: description,
-        image: { url: image },
-        price: price,
-        location: location,
-        country: country,
-      },
-      { new: true }
-    );
+    let upListing = req.body.listing;
+    let updateListing = await listing.findByIdAndUpdate(id, upListing, { new: true });
     res.redirect(`/show/${id}`);
   })
 );
