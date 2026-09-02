@@ -1,92 +1,153 @@
 <% layout("/layout/boilerplate") %>
-<head>
-  <link rel="stylesheet" href="/css/special.css" />
-</head>
-<main>
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <h2 class="mb-2">Create New Listing</h2>
-      <form method="POST" action="/rent" class="needs-validation" novalidate>
-        <div class="has-validation mb-3">
-          <label for="title" class="form-label">Title</label><br />
-          <input
-            type="text"
-            class="form-control"
-            name="listing[title]"
-            id="title"
-            placeholder="Enter title"
-            required
-          />
-          <div class="valid-feedback">Nice title!</div>
-          <div class="invalid-feedback">Enter a title</div>
+
+<div class="container form-page-container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="form-card">
+        <!-- Form Header -->
+        <div class="mb-4">
+          <a href="/" class="text-muted d-inline-flex align-items-center gap-1 text-decoration-none small fw-semibold mb-2">
+            <i class="bi bi-chevron-left"></i> Cancel & Back
+          </a>
+          <h2 class="form-header-title">List your property on Stayly</h2>
+          <p class="form-header-subtitle">
+            Fill in the details below to publish your stay and welcome guests from around the world.
+          </p>
         </div>
-        <div class="has-validation mb-3">
-          <label for="description" class="form-label">Description</label><br />
-          <textarea
-            name="listing[description]"
-            id="description"
-            class="form-control"
-            placeholder="Write a description for the listing"
-            required
-          ></textarea>
-          <div class="invalid-feedback">Please enter a brief description of the place</div>
-        </div>
-        <!-- image & price -->
-        <div class="row mb-3">
-          <div class="col-7 has-validation">
-            <label for="image" class="form-label">Image URL</label>
-            <input
-              type="text"
-              id="image"
-              name="listing[image.url]"
-              class="form-control"
-              placeholder="Enter the image url"
-              required
-            />
-            <div class="invalid-feedback">Please provide a valid url</div>
+
+        <form method="POST" action="/rent" class="needs-validation" novalidate>
+          <!-- Section 1: Basic Information -->
+          <div class="mb-4">
+            <h5 class="form-section-title">
+              <i class="bi bi-info-circle"></i> Basic Information
+            </h5>
+            
+            <div class="mb-3">
+              <label for="title" class="form-label fw-semibold">Listing Title</label>
+              <input
+                type="text"
+                class="form-control stayly-form-control"
+                name="listing[title]"
+                id="title"
+                placeholder="e.g. Luxurious Oceanfront Villa in Goa"
+                required
+              />
+              <div class="valid-feedback">Looks great!</div>
+              <div class="invalid-feedback">Please enter a catchy title for your listing.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label fw-semibold">Description</label>
+              <textarea
+                name="listing[description]"
+                id="description"
+                class="form-control stayly-form-control"
+                rows="4"
+                placeholder="Describe the atmosphere, unique amenities, nearby attractions, and what makes your stay special..."
+                required
+              ></textarea>
+              <div class="invalid-feedback">Please provide a description of the place.</div>
+            </div>
           </div>
-          <div class="col-5 has-validation">
-            <label for="prise" class="form-label">Price</label>
-            <input
-              type="number"
-              name="listing[price]"
-              class="form-control"
-              id="prise"
-              placeholder="Enter price per night"
-              required
-            />
-            <div class="invalid-feedback">Please enter a reasonable price</div>
+
+          <hr class="my-4" style="border-color: var(--brand-border);" />
+
+          <!-- Section 2: Location -->
+          <div class="mb-4">
+            <h5 class="form-section-title">
+              <i class="bi bi-geo-alt"></i> Location Details
+            </h5>
+
+            <div class="row g-3">
+              <div class="col-md-7">
+                <label for="location" class="form-label fw-semibold">City / Location</label>
+                <input
+                  type="text"
+                  id="location"
+                  name="listing[location]"
+                  class="form-control stayly-form-control"
+                  placeholder="e.g. North Goa, Candolim"
+                  required
+                />
+                <div class="invalid-feedback">Please enter the city or neighborhood.</div>
+              </div>
+
+              <div class="col-md-5">
+                <label for="country" class="form-label fw-semibold">Country</label>
+                <input
+                  type="text"
+                  id="country"
+                  name="listing[country]"
+                  class="form-control stayly-form-control"
+                  placeholder="e.g. India"
+                  required
+                />
+                <div class="invalid-feedback">Please specify the country.</div>
+              </div>
+            </div>
           </div>
-        </div>
-        <!-- location & Country -->
-        <div class="row mb-4">
-          <div class="col-md-8 has-validation">
-            <label for="location" class="form-label">Location</label>
-            <input
-              type="text"
-              id="location"
-              name="listing[location]"
-              class="form-control"
-              placeholder="Enter location of the place"
-              required
-            />
-            <div class="invalid-feedback">Please enter location</div>
+
+          <hr class="my-4" style="border-color: var(--brand-border);" />
+
+          <!-- Section 3: Pricing & Media -->
+          <div class="mb-4">
+            <h5 class="form-section-title">
+              <i class="bi bi-cash-stack"></i> Pricing & Media
+            </h5>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="price" class="form-label fw-semibold">Price per night</label>
+                <div class="input-group">
+                  <span class="input-group-text input-group-text-custom">&#8377;</span>
+                  <input
+                    type="number"
+                    name="listing[price]"
+                    class="form-control stayly-form-control"
+                    id="price"
+                    placeholder="2500"
+                    min="100"
+                    required
+                  />
+                  <div class="invalid-feedback">Please enter a valid price per night.</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="image" class="form-label fw-semibold">Image URL</label>
+                <input
+                  type="url"
+                  id="image"
+                  name="listing[image][url]"
+                  class="form-control stayly-form-control"
+                  placeholder="https://images.unsplash.com/..."
+                  required
+                />
+                <div class="invalid-feedback">Please enter a valid image URL.</div>
+              </div>
+            </div>
+
+            <!-- Live Image Preview Box -->
+            <label class="form-label text-muted small fw-semibold">Image Preview</label>
+            <div class="image-preview-box" id="imagePreviewContainer">
+              <div class="image-preview-placeholder" id="previewPlaceholder">
+                <i class="bi bi-card-image"></i>
+                <span>Enter an image URL above to see a live preview</span>
+              </div>
+              <img id="imagePreview" src="" alt="Preview" style="display: none;" />
+            </div>
           </div>
-          <div class="col-md-4">
-            <label for="country" class="form-label has-validation">Country</label>
-            <input
-              type="text"
-              id="country"
-              name="listing[country]"
-              class="form-control"
-              placeholder="Enter country"
-              required
-            />
-            <div class="invalid-feedback">Please enter country</div>
+
+          <!-- Submit Buttons -->
+          <div class="d-flex align-items-center justify-content-end gap-3 mt-4 pt-2">
+            <a href="/" class="btn btn-light px-4 py-2 border fw-semibold">Cancel</a>
+            <button type="submit" class="btn btn-brand px-5 py-2">
+              <i class="bi bi-check2-circle"></i> Create Listing
+            </button>
           </div>
-        </div>
-        <button class="btn btn-dark submit-btn">Submit</button>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
-</main>
+</div>
+
