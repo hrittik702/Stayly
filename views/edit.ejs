@@ -1,53 +1,152 @@
 <% layout("/layout/boilerplate") %>
-<head>
-  <!-- <link rel="stylesheet" href="/css/show.css" /> -->
-</head>
-<body>
-  <main>
-    <form method="POST" action="/listing/<%= editListing._id%>/edit?_method=PUT" class="needs-validation" novalidate>
-      <div class="title mb-3">
-        <div class="row">
-          <div class="col-6">
-            <input type="text" name="listing[title]" id="title" class="form-control" placeholder="" value="<%= editListing.title %>" required/>
+
+<div class="container form-page-container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="form-card">
+        <!-- Form Header -->
+        <div class="mb-4">
+          <a href="/show/<%= editListing._id %>" class="text-muted d-inline-flex align-items-center gap-1 text-decoration-none small fw-semibold mb-2">
+            <i class="bi bi-chevron-left"></i> Cancel & Back to Listing
+          </a>
+          <h2 class="form-header-title">Edit Listing</h2>
+          <p class="form-header-subtitle">
+            Update your property's details, photos, pricing, or description below.
+          </p>
+        </div>
+
+        <form method="POST" action="/listing/<%= editListing._id %>/edit?_method=PUT" class="needs-validation" novalidate>
+          <!-- Section 1: Basic Information -->
+          <div class="mb-4">
+            <h5 class="form-section-title">
+              <i class="bi bi-info-circle"></i> Basic Information
+            </h5>
+            
+            <div class="mb-3">
+              <label for="title" class="form-label fw-semibold">Listing Title</label>
+              <input
+                type="text"
+                class="form-control stayly-form-control"
+                name="listing[title]"
+                id="title"
+                value="<%= editListing.title %>"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Title cannot be empty.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label fw-semibold">Description</label>
+              <textarea
+                name="listing[description]"
+                id="description"
+                class="form-control stayly-form-control"
+                rows="4"
+                required
+              ><%= editListing.description %></textarea>
+              <div class="invalid-feedback">Description cannot be empty.</div>
+            </div>
           </div>
-          
-        </div>
-      </div>
-      <p><%= editListing.description %></p>
-      <div class="title-down">
-        <div class="images">
-          <img src=<%=editListing.image.url%> alt="">
-        </div>
-        <div class="title-down-right">
-          <div class="row">
-            <div>
-              <label for="description">Description</label>
-              <textarea name="listing[description]" id="description" class="form-control mb-2" required><%= editListing.description%></textarea>
-            </div>
-            <div>
-              <label for="image">Image URL</label>
-              <input type="text" name="listing[image.url]" id="image" class="form-control mb-2" value="<%= editListing.image.url%>">
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <label for="p">Price</label>
-                <input type="number" name="listing[price]" id="p" class="form-control mb-2" value="<%= editListing.price %>">
+
+          <hr class="my-4" style="border-color: var(--brand-border);" />
+
+          <!-- Section 2: Location -->
+          <div class="mb-4">
+            <h5 class="form-section-title">
+              <i class="bi bi-geo-alt"></i> Location Details
+            </h5>
+
+            <div class="row g-3">
+              <div class="col-md-7">
+                <label for="location" class="form-label fw-semibold">City / Location</label>
+                <input
+                  type="text"
+                  id="location"
+                  name="listing[location]"
+                  class="form-control stayly-form-control"
+                  value="<%= editListing.location %>"
+                  required
+                />
+                <div class="invalid-feedback">Please enter the location.</div>
               </div>
-              <div class="col-6">
-                <label for="country">Country</label>
-                <input type="text" class="form-control mb-2" id="country" name="listing[country]" value="<%=editListing.country%>">
+
+              <div class="col-md-5">
+                <label for="country" class="form-label fw-semibold">Country</label>
+                <input
+                  type="text"
+                  id="country"
+                  name="listing[country]"
+                  class="form-control stayly-form-control"
+                  value="<%= editListing.country %>"
+                  required
+                />
+                <div class="invalid-feedback">Please enter the country.</div>
               </div>
             </div>
-            <div>
-              <label for="location">Location</label>
-              <input type="text" class="form-control mb-4" id="location" name="listing[location]" value="<%=editListing.location%>">
+          </div>
+
+          <hr class="my-4" style="border-color: var(--brand-border);" />
+
+          <!-- Section 3: Pricing & Media -->
+          <div class="mb-4">
+            <h5 class="form-section-title">
+              <i class="bi bi-cash-stack"></i> Pricing & Media
+            </h5>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="price" class="form-label fw-semibold">Price per night</label>
+                <div class="input-group">
+                  <span class="input-group-text input-group-text-custom">&#8377;</span>
+                  <input
+                    type="number"
+                    name="listing[price]"
+                    class="form-control stayly-form-control"
+                    id="price"
+                    value="<%= editListing.price %>"
+                    min="100"
+                    required
+                  />
+                  <div class="invalid-feedback">Please enter a valid price.</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="image" class="form-label fw-semibold">Image URL</label>
+                <input
+                  type="url"
+                  id="image"
+                  name="listing[image][url]"
+                  class="form-control stayly-form-control"
+                  value="<%= editListing.image ? editListing.image.url : '' %>"
+                  required
+                />
+                <div class="invalid-feedback">Please provide a valid image URL.</div>
+              </div>
             </div>
-            <div class="host-settings col">
-            <button class="btn btn-dark">Submit Listing</button>
+
+            <!-- Current Image Preview -->
+            <label class="form-label text-muted small fw-semibold">Current Image Preview</label>
+            <div class="image-preview-box" id="imagePreviewContainer">
+              <img
+                id="imagePreview"
+                src="<%= (editListing.image && editListing.image.url) ? editListing.image.url : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6' %>"
+                alt="Current listing photo"
+              />
+            </div>
           </div>
+
+          <!-- Submit Buttons -->
+          <div class="d-flex align-items-center justify-content-end gap-3 mt-4 pt-2">
+            <a href="/show/<%= editListing._id %>" class="btn btn-light px-4 py-2 border fw-semibold">Cancel</a>
+            <button type="submit" class="btn btn-brand px-5 py-2">
+              <i class="bi bi-check2-circle"></i> Save Changes
+            </button>
           </div>
-        </div>
+        </form>
       </div>
-    </form>
-  </main>
-</body>
+    </div>
+  </div>
+</div>
+
