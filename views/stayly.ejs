@@ -1,13 +1,125 @@
 <% layout("/layout/boilerplate") %>
-<div class="list-container">
-  <% for(let listing of listings) {%>
-      <a href="/show/<%= listing._id%>">
-          <div class="card" style="width: 20rem;">
-          <img src=<%=listing.image.url%> class="card-img-top" alt=<%=listing.image.filename%>>
-            <div class="card-body">
-              <p class="card-text"> <span class="list-title"><%=listing.title%></span> <br> <span class="price">&#8377; <%= listing.price ? listing.price.toLocaleString('en-IN') : 'N/A' %> / Night </span></p>
+
+<!-- Category Filters Bar -->
+<div class="category-filter-wrapper">
+  <div class="container-fluid px-lg-5 px-3">
+    <div class="category-filter-scroll">
+      <div class="category-item active">
+        <i class="fa-solid fa-fire"></i>
+        <span>Trending</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <span>Beachfront</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-mountain-sun"></i>
+        <span>Iconic Cities</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-mountain"></i>
+        <span>Mountains</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-house-chimney-window"></i>
+        <span>Cabins</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-hotel"></i>
+        <span>Mansions</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-water-ladder"></i>
+        <span>Amazing Pools</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-tree"></i>
+        <span>Countryside</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-campground"></i>
+        <span>Camping</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-snowflake"></i>
+        <span>Arctic</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-sailboat"></i>
+        <span>Lakefront</span>
+      </div>
+      <div class="category-item">
+        <i class="fa-solid fa-landmark-dome"></i>
+        <span>Domes</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Listings Grid -->
+<div class="container-fluid px-lg-5 px-3 listings-grid-container">
+  <% if (!listings || listings.length === 0) { %>
+    <div class="text-center py-5">
+      <i class="bi bi-house-door display-1 text-muted"></i>
+      <h3 class="mt-3 fw-bold">No listings found</h3>
+      <p class="text-muted">Be the first to list a wonderful home on Stayly!</p>
+      <a href="/rent" class="btn btn-brand mt-2">
+        <i class="bi bi-plus-circle"></i> Create Listing
+      </a>
+    </div>
+  <% } else { %>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      <% for (let item of listings) { %>
+        <div class="col">
+          <div class="stayly-card position-relative">
+            <!-- Image Card & Wishlist Heart -->
+            <a href="/listing/<%= item._id %>" class="d-block text-decoration-none">
+              <div class="card-img-wrapper">
+                <img
+                  src="<%= (item.image && item.image.url) ? item.image.url : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80' %>"
+                  alt="<%= item.title %>"
+                  loading="lazy"
+                />
+                <span class="card-badge">Guest favorite</span>
+              </div>
+            </a>
+            
+            <button
+              class="card-wishlist-btn"
+              type="button"
+              onclick="event.stopPropagation(); this.classList.toggle('text-brand');"
+              title="Add to wishlist"
+              aria-label="Wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <!-- Card Details -->
+            <div class="stayly-card-body">
+              <a href="/show/<%= item._id %>" class="text-decoration-none text-reset">
+                <div class="card-location-row">
+                  <span class="fw-bold text-truncate" style="max-width: 80%;">
+                    <%= item.location ? item.location : 'Stayly Destination' %>, <%= item.country ? item.country : 'India' %>
+                  </span>
+                  <span class="card-rating-badge">
+                    <i class="fa-solid fa-star"></i> 4.92
+                  </span>
+                </div>
+                
+                <h6 class="card-title-text"><%= item.title %></h6>
+                <div class="card-subtitle-text">
+                  <%= item.description ? item.description.substring(0, 45) + '...' : 'Cozy and spacious rental retreat' %>
+                </div>
+
+                <div class="card-price-row">
+                  <span class="card-price-amount">&#8377; <%= item.price ? item.price.toLocaleString('en-IN') : '0' %></span>
+                  <span>/ night</span>
+                </div>
+              </a>
             </div>
           </div>
-      </a>
+        </div>
+      <% } %>
+    </div>
   <% } %>
 </div>
