@@ -1,21 +1,103 @@
-<nav class="navbar navbar-expand-lg stick bg-body-tertiary sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="bi bi-compass"></i>STAYLY</a>
+<nav class="navbar navbar-expand-lg stayly-navbar">
+  <div class="container-fluid px-lg-5 px-3">
+    <!-- Brand Logo -->
+    <a class="navbar-brand-custom" href="/listing">
+      <i class="bi bi-compass-fill"></i>
+      <span>STAYLY</span>
+    </a>
+
+    <!-- Center Search Bar (Desktop / Tablet) -->
+    <div class="d-none d-md-flex justify-content-center flex-grow-1 mx-4">
+      <div class="nav-search-pill">
+        <input
+          type="text"
+          class="nav-search-input"
+          placeholder="Anywhere  |  Any week  |  Add guests"
+          aria-label="Search destinations"
+        />
+        <button class="nav-search-btn" type="button" title="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Toggle Button -->
     <button
-      class="navbar-toggler"
+      class="navbar-toggler border-0 shadow-none d-lg-none"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
+      data-bs-target="#staylyNavContent"
+      aria-controls="staylyNavContent"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
+    <!-- Collapsible Right Nav Items -->
+    <div class="collapse navbar-collapse flex-grow-0" id="staylyNavContent">
+      <!-- Mobile Search Bar (Visible only on mobile collapse) -->
+      <div class="d-md-none my-3">
+        <div class="nav-search-pill w-100">
+          <input
+            type="text"
+            class="nav-search-input"
+            placeholder="Search destinations..."
+            aria-label="Search destinations"
+          />
+          <button class="nav-search-btn" type="button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-lg-center flex-column flex-lg-row gap-2 gap-lg-3 mt-2 mt-lg-0">
+        <a href="/listing/rent" class="nav-action-link">
+          <i class="bi bi-plus-circle-fill text-brand"></i>
+          <span>Rent your home</span>
+        </a>
+
+        <!-- User Dropdown Pill -->
+        <div class="dropdown">
+          <div
+            class="user-profile-pill"
+            id="userMenuDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars" style="font-size: 0.85rem; color: #555"></i>
+            <div class="user-profile-avatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
+          </div>
+
+          <ul
+            class="dropdown-menu dropdown-menu-end dropdown-menu-stayly"
+            aria-labelledby="userMenuDropdown"
+          >
+            <li>
+              <a class="dropdown-item fw-semibold" href="/rent">
+                <i class="bi bi-house-add text-brand"></i> Add New Listing
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/"> <i class="bi bi-grid"></i> Explore All Stays </a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="#contact">
+                <i class="bi bi-envelope"></i> Contact Us
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#help">
+                <i class="bi bi-question-circle"></i> Help Center
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
