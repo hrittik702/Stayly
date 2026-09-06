@@ -169,7 +169,7 @@
           <form
             method="POST"
             class="needs-validation"
-            action="/listing/review/<%=showListing._id%>"
+            action="/listing/<%=showListing._id%>/review"
             novalidate
           >
             <!-- Interactive 5-Star Rating Selector -->
@@ -439,7 +439,7 @@
               <!-- Review Comment Body -->
               <div class="review-comment-body">
                 <p class="review-comment-text mb-0"><%= review.comment %></p>
-                <form method="POST" action="/listing/review/<%=showListing._id%>/<%= review._id %>?_method=DELETE">
+                <form method="POST" action="/listing/<%=showListing._id%>/review/<%= review._id %>?_method=DELETE">
                      <button class="btn btn-dark">Delete</button>
                    </form>
               </div>

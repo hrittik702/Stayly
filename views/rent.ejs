@@ -6,7 +6,10 @@
       <div class="form-card">
         <!-- Form Header -->
         <div class="mb-4">
-          <a href="/" class="text-muted d-inline-flex align-items-center gap-1 text-decoration-none small fw-semibold mb-2">
+          <a
+            href="/"
+            class="text-muted d-inline-flex align-items-center gap-1 text-decoration-none small fw-semibold mb-2"
+          >
             <i class="bi bi-chevron-left"></i> Cancel & Back
           </a>
           <h2 class="form-header-title">List your property on Stayly</h2>
@@ -15,13 +18,11 @@
           </p>
         </div>
 
-        <form method="POST" action="/rent" class="needs-validation" novalidate>
+        <form method="POST" action="/listing/rent" class="needs-validation" novalidate>
           <!-- Section 1: Basic Information -->
           <div class="mb-4">
-            <h5 class="form-section-title">
-              <i class="bi bi-info-circle"></i> Basic Information
-            </h5>
-            
+            <h5 class="form-section-title"><i class="bi bi-info-circle"></i> Basic Information</h5>
+
             <div class="mb-3">
               <label for="title" class="form-label fw-semibold">Listing Title</label>
               <input
@@ -50,13 +51,11 @@
             </div>
           </div>
 
-          <hr class="my-4" style="border-color: var(--brand-border);" />
+          <hr class="my-4" style="border-color: var(--brand-border)" />
 
           <!-- Section 2: Location -->
           <div class="mb-4">
-            <h5 class="form-section-title">
-              <i class="bi bi-geo-alt"></i> Location Details
-            </h5>
+            <h5 class="form-section-title"><i class="bi bi-geo-alt"></i> Location Details</h5>
 
             <div class="row g-3">
               <div class="col-md-7">
@@ -87,13 +86,11 @@
             </div>
           </div>
 
-          <hr class="my-4" style="border-color: var(--brand-border);" />
+          <hr class="my-4" style="border-color: var(--brand-border)" />
 
           <!-- Section 3: Pricing & Media -->
           <div class="mb-4">
-            <h5 class="form-section-title">
-              <i class="bi bi-cash-stack"></i> Pricing & Media
-            </h5>
+            <h5 class="form-section-title"><i class="bi bi-cash-stack"></i> Pricing & Media</h5>
 
             <div class="row g-3 mb-3">
               <div class="col-md-6">
@@ -134,7 +131,7 @@
                 <i class="bi bi-card-image"></i>
                 <span>Enter an image URL above to see a live preview</span>
               </div>
-              <img id="imagePreview" src="" alt="Preview" style="display: none;" />
+              <img id="imagePreview" src="" alt="Preview" style="display: none" />
             </div>
           </div>
 
@@ -150,4 +147,3 @@
     </div>
   </div>
 </div>
-

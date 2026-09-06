@@ -4,14 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stayly - Find your next unforgettable stay</title>
-    
+
     <!-- Favicon -->
-    <link
-      rel="shortcut icon"
-      href="/Assets/stayly-logo-copy.png"
-      type="image/png"
-      id="favicon"
-    />
+    <link rel="shortcut icon" href="/Assets/stayly-logo-copy.png" type="image/png" id="favicon" />
 
     <!-- Google Fonts Preconnect & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,11 +43,9 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <%- include('../includes/nav') %>
-    
-    <main id="main-content">
-      <%- body %>
-    </main>
+    <%- include('../includes/error.ejs') %> <%- include('../includes/nav') %>
+
+    <main id="main-content"><%- body %></main>
 
     <%- include('../includes/footer') %>
 
@@ -64,7 +57,6 @@
     ></script>
 
     <!-- App Custom Script -->
-    <script style="background-color: red;" src="/js/script.js"></script>
+    <script style="background-color: red" src="/js/script.js"></script>
   </body>
 </html>
-
