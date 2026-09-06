@@ -7,8 +7,11 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/expressError.js');
 const router = express.Router();
-const listings = require('./routes/listing.js');
-const reviews = require('./routes/review.js');
+const listingRouter = require('./routes/listing.js');
+const reviewsRouter = require('./routes/review.js');
+const userRouter = require('./routes/user.js');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 // view engine
 app.engine('ejs', ejsMate);
@@ -33,11 +36,37 @@ main()
     console.log(err);
   });
 
-// listings route
-app.use('/listing', listings);
+const sessionOptions = {
+  secret: 'WdC2027@fJe',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+};
 
-// review route
-app.use('/listing/review', reviews);
+app.get('/flash', (req, res) => {
+  let { name = 'anonymous' } = req.query;
+  req.session.name = name;
+  req.flash('info', 'user registered successfully');
+  res.redirect('/listing');
+});
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+// Routes
+app.use('/listing', listingRouter);
+app.use('/listing/:id/review', reviewsRouter);
+app.use('/user', userRouter);
 
 // All page Error Checking
 app.all('/{*splat}', (req, res, next) => {
