@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const wrapAsync = require('../utils/wrapAsync.js');
 const listing = require('../models/listings');
 const { listingSchema } = require('../schema.js');
@@ -15,14 +15,10 @@ const validateListing = (req, res, next) => {
   }
 };
 
-// index route
-router.get(
-  '/',
-  wrapAsync(async (req, res) => {
-    const listings = await listing.find();
-    res.render('stayly.ejs', { listings });
-  })
-);
+// new rent route
+router.get('/rent', (req, res) => {
+  res.render('rent.ejs');
+});
 
 // show route
 router.get(
@@ -30,14 +26,13 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const showListing = await listing.findById(id).populate('reviews');
-    res.render('show.ejs', { showListing });
+    if (!showListing) {
+      req.flash('error', 'Listing not found!');
+      return res.redirect('/listing');
+    }
+    return res.render('show.ejs', { showListing });
   })
 );
-
-// new rent route
-router.get('/rent', (req, res) => {
-  res.render('rent.ejs');
-});
 
 // creating rent house
 router.post(
@@ -45,7 +40,8 @@ router.post(
   wrapAsync(async (req, res) => {
     const newListing = new listing(req.body.listing);
     await newListing.save();
-    res.redirect('/');
+    req.flash('success', 'New Listing has been added successfully!');
+    res.redirect('/listing');
   })
 );
 
@@ -56,7 +52,9 @@ router.put(
     let { id } = req.params;
     let upListing = req.body.listing;
     let updateListing = await listing.findByIdAndUpdate(id, upListing, { new: true });
-    res.redirect(`/show/${id}`);
+    req.flash('success', `${updateListing._id} has been updated!`);
+
+    res.redirect(`/listing/${id}`);
   })
 );
 
@@ -65,6 +63,10 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const editListing = await listing.findById(id);
+    if (!editListing) {
+      req.flash('error', 'Requested Listing is not found!');
+      return res.redirect('/listing');
+    }
     res.render('edit.ejs', { editListing });
   })
 );
@@ -75,7 +77,17 @@ router.delete(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await listing.findByIdAndDelete(id);
+    req.flash('success', 'Listing has been deleted!');
     res.redirect('/listing');
+  })
+);
+
+// index route
+router.get(
+  '/',
+  wrapAsync(async (req, res) => {
+    const listings = await listing.find();
+    res.render('stayly.ejs', { listings });
   })
 );
 
