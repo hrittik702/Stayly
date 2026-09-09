@@ -1,0 +1,134 @@
+<% layout("/layout/boilerplate") %>
+
+<div class="auth-page-wrapper">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
+        <div class="auth-card">
+          <!-- Brand Badge & Header -->
+          <div class="text-center mb-4">
+            <div class="auth-brand-badge">
+              <i class="bi bi-compass-fill"></i>
+            </div>
+            <h2 class="auth-title">Create your account</h2>
+            <p class="auth-subtitle">Join Stayly to book unique homes and memorable experiences worldwide.</p>
+          </div>
+
+          <!-- Signup Form -->
+          <form action="/user/signup" method="POST" class="needs-validation" novalidate>
+            <!-- Email Input -->
+            <div class="mb-3">
+              <label for="email" class="auth-form-label">
+                <span>Email Address</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-text border-end-0">
+                  <i class="bi bi-envelope"></i>
+                </span>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control auth-form-control border-start-0 ps-0"
+                  name="email"
+                  placeholder="name@example.com"
+                  autocomplete="email"
+                  required
+                />
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+            </div>
+
+            <!-- Username Input -->
+            <div class="mb-3">
+              <label for="username" class="auth-form-label">
+                <span>Username</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-text border-end-0">
+                  <i class="bi bi-person"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control auth-form-control border-start-0 ps-0"
+                  name="username"
+                  id="username"
+                  placeholder="Choose a unique username"
+                  autocomplete="username"
+                  required
+                />
+                <div class="invalid-feedback">Please choose a username.</div>
+              </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="mb-3">
+              <label for="password" class="auth-form-label">
+                <span>Password</span>
+              </label>
+              <div class="input-group auth-input-group">
+                <span class="input-group-text border-end-0">
+                  <i class="bi bi-lock"></i>
+                </span>
+                <input
+                  type="password"
+                  class="form-control auth-form-control border-start-0 border-end-0 px-0"
+                  id="password"
+                  name="password"
+                  placeholder="Create a strong password (min 6 chars)"
+                  autocomplete="new-password"
+                  required
+                  minlength="6"
+                />
+                <button
+                  class="btn auth-toggle-btn"
+                  type="button"
+                  id="togglePassword"
+                  title="Show or hide password"
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+                <div class="invalid-feedback">Password must be at least 6 characters.</div>
+              </div>
+              <div class="form-text text-muted small mt-1">
+                <i class="bi bi-shield-lock me-1"></i>Must be at least 6 characters.
+              </div>
+            </div>
+
+            <!-- Terms Notice -->
+            <p class="auth-terms-text text-muted text-center my-3">
+              By creating an account, you agree to Stayly's
+              <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>.
+            </p>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-brand w-100 py-3 fw-bold auth-submit-btn">
+              <span>Create Account</span>
+              <i class="bi bi-arrow-right ms-2"></i>
+            </button>
+          </form>
+
+          <!-- Footer Switch to Login -->
+          <div class="auth-footer-switch text-center mt-4 pt-3 border-top">
+            <p class="text-muted small mb-0">
+              Already have a Stayly account?
+              <a href="/user/login" class="fw-bold text-brand">Log in</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Trust Badges below card -->
+        <div class="auth-trust-badges d-flex align-items-center justify-content-center gap-4 mt-4">
+          <span class="auth-trust-item">
+            <i class="bi bi-shield-check text-brand"></i> Safe & Secure
+          </span>
+          <span class="auth-trust-item">
+            <i class="bi bi-check-circle-fill text-success"></i> Free Registration
+          </span>
+          <span class="auth-trust-item">
+            <i class="bi bi-heart-fill text-danger"></i> Trusted by Travelers
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

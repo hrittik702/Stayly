@@ -17,6 +17,10 @@ const validateListing = (req, res, next) => {
 
 // new rent route
 router.get('/rent', (req, res) => {
+  if (!req.isAuthenticated()) {
+    req.flash('error', 'Login to create Listing');
+    return res.redirect('/user/login');
+  }
   res.render('rent.ejs');
 });
 
@@ -52,7 +56,7 @@ router.put(
     let { id } = req.params;
     let upListing = req.body.listing;
     let updateListing = await listing.findByIdAndUpdate(id, upListing, { new: true });
-    req.flash('success', `${updateListing._id} has been updated!`);
+    req.flash('success', `"${updateListing.title || 'Listing'}" has been updated successfully!`);
 
     res.redirect(`/listing/${id}`);
   })

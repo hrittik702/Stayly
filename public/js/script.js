@@ -119,4 +119,84 @@
       });
     }
   }
+
+  // 6. Password Visibility Toggle
+  const togglePasswordBtns = document.querySelectorAll('.auth-toggle-btn');
+  togglePasswordBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const inputGroup = btn.closest('.auth-input-group');
+      const input = inputGroup ? inputGroup.querySelector('input') : document.getElementById('password');
+      const icon = btn.querySelector('i');
+      if (input) {
+        if (input.type === 'password') {
+          input.type = 'text';
+          if (icon) {
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+          }
+          btn.setAttribute('title', 'Hide password');
+        } else {
+          input.type = 'password';
+          if (icon) {
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+          }
+          btn.setAttribute('title', 'Show password');
+        }
+      }
+    });
+  });
+
+  // 7. Modern Flash Toast Notifications Handler
+  const flashToasts = document.querySelectorAll('.stayly-flash-toast');
+  flashToasts.forEach((toast) => {
+    const dismissDuration = 5000;
+    let startTime = Date.now();
+    let remainingTime = dismissDuration;
+    let timerId = null;
+
+    const dismissToast = () => {
+      if (toast.classList.contains('flash-hiding')) return;
+      toast.classList.add('flash-hiding');
+      setTimeout(() => {
+        toast.remove();
+        const container = document.getElementById('staylyFlashContainer');
+        if (container && container.children.length === 0) {
+          container.remove();
+        }
+      }, 350);
+    };
+
+    const startTimer = () => {
+      startTime = Date.now();
+      timerId = setTimeout(dismissToast, remainingTime);
+    };
+
+    const pauseTimer = () => {
+      clearTimeout(timerId);
+      remainingTime -= Date.now() - startTime;
+    };
+
+    // Auto-dismiss countdown
+    startTimer();
+
+    // Pause timer on hover, resume on mouse leave
+    toast.addEventListener('mouseenter', pauseTimer);
+    toast.addEventListener('mouseleave', () => {
+      if (remainingTime > 0) {
+        startTimer();
+      }
+    });
+
+    // Close button click
+    const closeBtn = toast.querySelector('.flash-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        clearTimeout(timerId);
+        dismissToast();
+      });
+    }
+  });
 })();

@@ -76,6 +76,28 @@
             class="dropdown-menu dropdown-menu-end dropdown-menu-stayly"
             aria-labelledby="userMenuDropdown"
           >
+            <% if (!locals.currUser) { %>
+            <li>
+              <a class="dropdown-item fw-semibold text-brand" href="/user/signup">
+                <i class="bi bi-person-plus-fill"></i> Sign up
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/user/login">
+                <i class="bi bi-box-arrow-in-right"></i> Log in
+              </a>
+            </li>
+            <% } else { %>
+            <li class="px-3 py-2 text-muted small border-bottom mb-1">
+              Signed in as <strong class="text-dark"><%= currUser.username %></strong>
+            </li>
+            <li>
+              <a class="dropdown-item text-danger" href="/user/logout">
+                <i class="bi bi-box-arrow-right"></i> Log out
+              </a>
+            </li>
+            <% } %>
+            <li><hr class="dropdown-divider" /></li>
             <li>
               <a class="dropdown-item fw-semibold" href="/listing/rent">
                 <i class="bi bi-house-add text-brand"></i> Add New Listing

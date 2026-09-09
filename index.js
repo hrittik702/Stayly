@@ -12,6 +12,9 @@ const reviewsRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
 const session = require('express-session');
 const flash = require('connect-flash');
+const user = require('./models/user.js');
+const passport = require('passport');
+const localStrategy = require('passport-local');
 
 // view engine
 app.engine('ejs', ejsMate);
@@ -47,26 +50,44 @@ const sessionOptions = {
   },
 };
 
-app.get('/flash', (req, res) => {
-  let { name = 'anonymous' } = req.query;
-  req.session.name = name;
-  req.flash('info', 'user registered successfully');
-  res.redirect('/listing');
-});
-
 app.use(session(sessionOptions));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(user.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
+  res.locals.warning = req.flash('warning');
+  res.locals.info = req.flash('info');
+  res.locals.currUser = req.user;
   next();
+});
+
+app.get('/flash', (req, res) => {
+  let { name = 'anonymous' } = req.query;
+  req.session.name = name;
+  req.flash('info', `Hello ${name}, flash notifications are fully functional!`);
+  res.redirect('/listing');
 });
 
 // Routes
 app.use('/listing', listingRouter);
 app.use('/listing/:id/review', reviewsRouter);
 app.use('/user', userRouter);
+
+app.get('/demoUser', async (req, res) => {
+  let fakeUser = new user({
+    email: 'mmhrittik@gmail.com',
+    username: 'hrittik702',
+  });
+  let password = 'WdC2024@fJe';
+  let regUser = await user.register(fakeUser, password);
+  res.send(regUser);
+});
 
 // All page Error Checking
 app.all('/{*splat}', (req, res, next) => {

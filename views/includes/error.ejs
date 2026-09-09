@@ -1,14 +1,100 @@
-<% if(success && success.length){ %>
-    <div class="alert alert-success alerts alert-dismissible fade show" role="alert">
-        <%=success%> 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<% } %>    
+<%
+  const successMsgs = (typeof success !== 'undefined' ? success : (locals && locals.success)) || [];
+  const errorMsgs = (typeof error !== 'undefined' ? error : (locals && locals.error)) || [];
+  const warningMsgs = (typeof warning !== 'undefined' ? warning : (locals && locals.warning)) || [];
+  const infoMsgs = (typeof info !== 'undefined' ? info : (locals && locals.info)) || [];
 
-<% if(error && error.length){ %>
-    <div class="alert alert-danger  alerts alert-dismissible fade show" role="alert">
-        <%=error%> 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<% } %>    
+  const successList = (Array.isArray(successMsgs) ? successMsgs : [successMsgs]).filter(Boolean);
+  const errorList = (Array.isArray(errorMsgs) ? errorMsgs : [errorMsgs]).filter(Boolean);
+  const warningList = (Array.isArray(warningMsgs) ? warningMsgs : [warningMsgs]).filter(Boolean);
+  const infoList = (Array.isArray(infoMsgs) ? infoMsgs : [infoMsgs]).filter(Boolean);
 
+  const hasSuccess = successList.length > 0;
+  const hasError = errorList.length > 0;
+  const hasWarning = warningList.length > 0;
+  const hasInfo = infoList.length > 0;
+%>
+
+<% if (hasSuccess || hasError || hasWarning || hasInfo) { %>
+<div class="stayly-flash-container" id="staylyFlashContainer" aria-live="polite" aria-atomic="true">
+  <% if (hasSuccess) { %>
+    <% successList.forEach(function(msg) { %>
+      <div class="stayly-flash-toast stayly-flash-success alert alert-dismissible fade show" role="alert">
+        <div class="flash-icon-box">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="flash-content">
+          <div class="flash-header">
+            <span class="flash-badge flash-badge-success">Success</span>
+          </div>
+          <p class="flash-message"><%= msg %></p>
+        </div>
+        <button type="button" class="flash-close-btn" data-bs-dismiss="alert" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flash-progress-bar flash-progress-success"></div>
+      </div>
+    <% }); %>
+  <% } %>
+
+  <% if (hasError) { %>
+    <% errorList.forEach(function(msg) { %>
+      <div class="stayly-flash-toast stayly-flash-danger alert alert-dismissible fade show" role="alert">
+        <div class="flash-icon-box">
+          <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <div class="flash-content">
+          <div class="flash-header">
+            <span class="flash-badge flash-badge-danger">Notice</span>
+          </div>
+          <p class="flash-message"><%= msg %></p>
+        </div>
+        <button type="button" class="flash-close-btn" data-bs-dismiss="alert" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flash-progress-bar flash-progress-danger"></div>
+      </div>
+    <% }); %>
+  <% } %>
+
+  <% if (hasWarning) { %>
+    <% warningList.forEach(function(msg) { %>
+      <div class="stayly-flash-toast stayly-flash-warning alert alert-dismissible fade show" role="alert">
+        <div class="flash-icon-box">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div class="flash-content">
+          <div class="flash-header">
+            <span class="flash-badge flash-badge-warning">Warning</span>
+          </div>
+          <p class="flash-message"><%= msg %></p>
+        </div>
+        <button type="button" class="flash-close-btn" data-bs-dismiss="alert" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flash-progress-bar flash-progress-warning"></div>
+      </div>
+    <% }); %>
+  <% } %>
+
+  <% if (hasInfo) { %>
+    <% infoList.forEach(function(msg) { %>
+      <div class="stayly-flash-toast stayly-flash-info alert alert-dismissible fade show" role="alert">
+        <div class="flash-icon-box">
+          <i class="fa-solid fa-circle-info"></i>
+        </div>
+        <div class="flash-content">
+          <div class="flash-header">
+            <span class="flash-badge flash-badge-info">Info</span>
+          </div>
+          <p class="flash-message"><%= msg %></p>
+        </div>
+        <button type="button" class="flash-close-btn" data-bs-dismiss="alert" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flash-progress-bar flash-progress-info"></div>
+      </div>
+    <% }); %>
+  <% } %>
+</div>
+<% } %>
