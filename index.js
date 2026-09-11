@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const port = 3000;
+const port = 4000;
 const app = express();
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
@@ -15,6 +15,8 @@ const flash = require('connect-flash');
 const user = require('./models/user.js');
 const passport = require('passport');
 const localStrategy = require('passport-local');
+const listing = require('./models/listings');
+const wrapAsync = require('./utils/wrapAsync.js');
 
 // view engine
 app.engine('ejs', ejsMate);
@@ -73,6 +75,14 @@ app.get('/flash', (req, res) => {
   req.flash('info', `Hello ${name}, flash notifications are fully functional!`);
   res.redirect('/listing');
 });
+
+app.get(
+  '/',
+  wrapAsync(async (req, res) => {
+    const listings = await listing.find();
+    res.render('stayly.ejs', { listings });
+  })
+);
 
 // Routes
 app.use('/listing', listingRouter);

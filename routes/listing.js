@@ -86,13 +86,4 @@ router.delete(
   })
 );
 
-// index route
-router.get(
-  '/',
-  wrapAsync(async (req, res) => {
-    const listings = await listing.find();
-    res.render('stayly.ejs', { listings });
-  })
-);
-
 module.exports = router;
